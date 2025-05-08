@@ -49,6 +49,9 @@ jobs:
               $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
               $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
 
+              # Set the WSMan configuration
+              Set-Item wsman: localhostClientTrustedHosts -Value " 48.216.209.49"
+
               # Execute based on ScriptType
               if ($scriptType -eq 'FilePath') {
                   if (-not $scriptPath) {
