@@ -24,22 +24,10 @@ on:
       ScriptArguments:
         required: false
         type: string
-      InitializationScript:
-        required: false
-        type: string
       SessionVariables:
         required: false
         type: string
-      CommunicationProtocol:
-        required: true
-        type: string
-      AuthenticationMechanism:
-        required: true
-        type: string
-      NewPsSessionOptionArguments:
-        required: true
-        type: string
-
+      
 jobs:
   execute-powershell:
     runs-on: ubuntu-latest
