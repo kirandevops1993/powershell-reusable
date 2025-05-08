@@ -34,9 +34,6 @@ jobs:
     steps:
       - name: Execute PowerShell Script
         run: |
-          $sessionOptions = "${{ inputs.NewPsSessionOptionArguments }}"
-          $protocol = "${{ inputs.CommunicationProtocol }}"
-          $authType = "${{ inputs.AuthenticationMechanism }}"
           $machines = "${{ inputs.Machines }}"
           $username = "${{ inputs.UserName }}"
           $password = "${{ inputs.UserPassword }}"
