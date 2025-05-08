@@ -33,7 +33,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Execute PowerShell Script
-        shell: pwsh
         run: |
           try {
               # Assign inputs to variables
