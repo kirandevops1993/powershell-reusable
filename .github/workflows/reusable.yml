@@ -1,0 +1,69 @@
+name: PowerShell Task
+
+on:
+  workflow_call:
+    inputs:
+      Machines:
+        required: true
+        type: string
+      UserName:
+        required: true
+        type: string
+      UserPassword:
+        required: true
+        type: string
+      ScriptType:
+        required: true
+        type: string
+      ScriptPath:
+        required: false
+        type: string
+      InlineScript:
+        required: false
+        type: string
+      ScriptArguments:
+        required: false
+        type: string
+      InitializationScript:
+        required: false
+        type: string
+      SessionVariables:
+        required: false
+        type: string
+      CommunicationProtocol:
+        required: true
+        type: string
+      AuthenticationMechanism:
+        required: true
+        type: string
+      NewPsSessionOptionArguments:
+        required: true
+        type: string
+
+jobs:
+  execute-powershell:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PowerShell
+        uses: actions/setup-powershell@v1
+
+      - name: Execute PowerShell Script
+        run: |
+          $sessionOptions = "${{ inputs.NewPsSessionOptionArguments }}"
+          $protocol = "${{ inputs.CommunicationProtocol }}"
+          $authType = "${{ inputs.AuthenticationMechanism }}"
+          $machines = "${{ inputs.Machines }}"
+          $username = "${{ inputs.UserName }}"
+          $password = "${{ inputs.UserPassword }}"
+          $scriptType = "${{ inputs.ScriptType }}"
+          $scriptPath = "${{ inputs.ScriptPath }}"
+          $inlineScript = "${{ inputs.InlineScript }}"
+          $scriptArguments = "${{ inputs.ScriptArguments }}"
+          $initScript = "${{ inputs.InitializationScript }}"
+          $sessionVariables = "${{ inputs.SessionVariables }}"
+
+          if ($scriptType -eq 'FilePath') {
+            pwsh -Command "Invoke-Command -ComputerName $machines -Credential (New-Object System.Management.Automation.PSCredential($username, (ConvertTo-SecureString $password -AsPlainText -Force))) -FilePath $scriptPath -ArgumentList $scriptArguments -SessionOption $sessionOptions -Authentication $authType -UseSSL:$protocol"
+          } elseif ($scriptType -eq 'Inline') {
+            pwsh -Command "Invoke-Command -ComputerName $machines -Credential (New-Object System.Management.Automation.PSCredential($username, (ConvertTo-SecureString $password -AsPlainText -Force))) -ScriptBlock { $inlineScript } -SessionOption $sessionOptions -Authentication $authType -UseSSL:$protocol"
+          }
