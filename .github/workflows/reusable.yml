@@ -44,7 +44,7 @@ jobs:
               $inlineScript = "${{ inputs.InlineScript }}"
               $scriptArguments = "${{ inputs.ScriptArguments }}"
               $sessionVariables = "${{ inputs.SessionVariables }}"
-
+              
               # Convert password to secure string and create a credential object
               $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
               $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
@@ -62,6 +62,8 @@ jobs:
                   if (-not $inlineScript) {
                       throw "InlineScript is required when ScriptType is 'Inline'."
                   }
+                  Write-Host ${{ inputs.InlineScript }}
+                  Write-Host $inlineScript
                   Invoke-Command -ComputerName $machines -Credential $credential -ScriptBlock { Invoke-Expression $inlineScript }
               } else {
                   throw "Invalid ScriptType provided. Valid values are 'FilePath' or 'Inline'."
