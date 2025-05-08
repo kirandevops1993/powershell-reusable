@@ -45,6 +45,19 @@ jobs:
               $scriptArguments = "${{ inputs.ScriptArguments }}"
               $sessionVariables = "${{ inputs.SessionVariables }}"
 
+              # Validate required inputs
+              if (-not $machines) {
+                  throw "The Machines parameter is required and cannot be empty."
+              }
+
+              if (-not $username -or -not $password) {
+                  throw "Both UserName and UserPassword are required and cannot be empty."
+              }
+
+              # Convert password to secure string and create a credential object
+              $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+              $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
+
               # Execute based on ScriptType
               if ($scriptType -eq 'FilePath') {
                   if (-not $scriptPath) {
