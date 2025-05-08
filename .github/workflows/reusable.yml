@@ -32,9 +32,6 @@ jobs:
   execute-powershell:
     runs-on: windows-latest
     steps:
-      - name: Setup PowerShell
-        uses: actions/setup-powershell@v1
-
       - name: Execute PowerShell Script
         run: |
           $sessionOptions = "${{ inputs.NewPsSessionOptionArguments }}"
