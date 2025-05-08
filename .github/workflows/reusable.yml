@@ -50,8 +50,7 @@ jobs:
               $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
 
               # Add the specific IP address to TrustedHosts
-              $trustedHostIP = " 48.216.209.49"
-              Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value $trustedHostIP -Force
+              Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value $machines -Force
 
               # Execute based on ScriptType
               if ($scriptType -eq 'FilePath') {
