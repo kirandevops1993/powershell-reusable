@@ -47,7 +47,7 @@ jobs:
 
               # Convert password to secure string and create a credential object
               $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
-              $credential = New-Object System.Management.Automation.PSCredential($username, $password)
+              $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
 
               # Add the specific IP address to TrustedHosts
               Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value $machines -Force
