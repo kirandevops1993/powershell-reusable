@@ -64,7 +64,8 @@ jobs:
                   }
                   Write-Host ${{ inputs.InlineScript }}
                   Write-Host $inlineScript
-                  Invoke-Command -ComputerName $machines -Credential $credential -ScriptBlock { $inlineScript }
+                  $result = Invoke-Command -ComputerName $machines -Credential $credential -ScriptBlock { $inlineScript }
+                  Write-Host $result
               } else {
                   throw "Invalid ScriptType provided. Valid values are 'FilePath' or 'Inline'."
               }
