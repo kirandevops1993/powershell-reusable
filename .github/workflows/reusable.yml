@@ -47,7 +47,7 @@ jobs:
               
               # Convert password to secure string and create a credential object
               $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
-              $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
+              $credential = New-Object System.Management.Automation.PSCredential ($username, $securePassword)
 
               # Add the specific IP address to TrustedHosts
               Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value $machines -Force
@@ -62,7 +62,7 @@ jobs:
                   if (-not $inlineScript) {
                       throw "InlineScript is required when ScriptType is 'Inline'."
                   }
-                  $result = Invoke-Command -ComputerName $machines -Credential $credential -ScriptBlock { $inlineScript }
+                  $result = Invoke-Command -ComputerName ${machines} -Credential ${credential} -ScriptBlock { $inlineScript }
                   Write-Output $result
               } else {
                   throw "Invalid ScriptType provided. Valid values are 'FilePath' or 'Inline'."
