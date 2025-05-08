@@ -62,7 +62,7 @@ jobs:
                   if (-not $inlineScript) {
                       throw "InlineScript is required when ScriptType is 'Inline'."
                   }
-                  $pw_result = Invoke-Command -ComputerName ${machines} -Credential ${credential} -ScriptBlock { $inlineScript } -Verbose
+                  Invoke-Command -ComputerName ${machines} -Credential ${credential} -ScriptBlock { $inlineScript } -Verbose
                   Write-Output $pw_result
                   Write-Host $pw_result
               } else {
