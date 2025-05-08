@@ -30,7 +30,7 @@ on:
 
 jobs:
   execute-powershell:
-    runs-on: windows-latest
+    runs-on: self-hosted
     steps:
       - name: Execute PowerShell Script
         run: |
